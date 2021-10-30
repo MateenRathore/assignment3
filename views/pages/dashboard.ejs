@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <title> Dashboard | Parkinson's Disease App </title>
+</head>
+<body>
+    
+    <header class="header">
+        <h2><a class="brandname" href="/dashboard">Parkinson's Disease Portal</a></h2>
+        <a class="logout" href="/logout">Logout</a>
+    </header>
+    <main>
+        
+        <% if(role === 1){ %>
+            <section class="patient-content">
+                <div class="row">
+                    <div class="video-card">
+                        <a href="https://www.youtube.com/watch?v=MsXlZ_phGNY&t=1s" target="blank">
+                            <img class='video-thumbnail' src="images/img1.png"/>
+                            <h3 class="video-heading">Strengthening Exercise </h3>
+                        </a>
+                    </div>
+                    <div class="video-card">
+                        <a href="https://www.youtube.com/watch?v=wkDiOCIX_xA" target="blank">
+                            <img class='video-thumbnail' src="images/img2.png"/>
+                            <h3 class="video-heading">Balancing Exercise </h3>
+                        </a>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="video-card">
+                        <a href="https://www.youtube.com/watch?v=7CFLm1SL5EU" target="blank">
+                            <img class='video-thumbnail' src="images/img3.png"/>
+                            <h3 class="video-heading">Flexibility</h3>
+                        </a>
+                    </div>
+                    <div class="video-card">
+                        <a href="https://www.youtube.com/watch?v=WRyPQO_u_qE" target="blank">
+                            <img class='video-thumbnail' src="images/img4.png"/>
+                            <h3 class="video-heading">Leg Strengthening</h3>
+                        </a>
+                    </div>
+                </div>
+            </section>
+        <% } else if(role === 2 ){ %>
+            <section class="patient-data">
+                <div class="row">
+                    <div id="graph" class="aGraph"></div>
+                </div>
+                <div class="row">
+                    <p><span style="color: steelblue">Blue line</span> - drawing speed (distance over change in time).</p>
+                    <p><span style="color: orange">Orange line</span> - displacement around the ideal trajectory (change in radius).</p>
+                    <div id="control" class="aGraph">
+                        <p>Select different experiment:
+                            <select name="aa" onchange="reload(this.value)"> 
+                                <option value="CSVs/data1.csv">Data 1</option>
+                                <option value="CSVs/data2.csv">Data 2</option>
+                                <option value="CSVs/data3.csv">Data 3</option>
+                                <option value="CSVs/data4.csv">Data 4</option>
+                                <option value="CSVs/data5.csv">Data 5</option>
+                                <option value="CSVs/data6.csv">Data 6</option>
+                            </select>
+                        </p>
+                    </div>
+                </div>
+            </section>
+        <% } else if(role === 3 || role === 4 ){ %>
+            <div class="patientdata">
+                <section class="patient-location">
+                    <div class="row">
+                        <div id="mapid"></div>
+                    </div>           
+                </section>
+                
+                <section class="patient-data">
+                    <h1 id="PatientHeading"> Representing '<%- result[0].username %>' data</h1>
+                    <div class="row">
+                        <div id="graph" class="aGraph"></div>
+                    </div>
+                    <div class="row">
+                        <p><span style="color: steelblue">Blue line</span> - drawing speed (distance over change in time).</p>
+                        <p><span style="color: orange">Orange line</span> - displacement around the ideal trajectory (change in radius).</p>
+                        <div id="control" class="aGraph">
+                            <p>Select different experiment:
+                                <select name="aa" onchange="reload(this.value)"> 
+                                    <option value="CSVs/data1.csv">Data 1</option>
+                                    <option value="CSVs/data2.csv">Data 2</option>
+                                    <option value="CSVs/data3.csv">Data 3</option>
+                                    <option value="CSVs/data4.csv">Data 4</option>
+                                    <option value="CSVs/data5.csv">Data 5</option>
+                                    <option value="CSVs/data6.csv">Data 6</option>
+                                </select>
+                            </p>
+                        </div>
+                    </div>
+                </section>
+                <div class="comments">
+                    <h3>Comments</h3>
+                    <% note.map((data)=>{ %>
+                        <p><%- data.note %></p>
+                    <% }) %>
+                    <div class="comment-form">
+                        <form action="/comment" method="post">
+                            <textarea class="newcomment" name="newcomment" cols="100" rows="3" placeholder="Add new comments about data" required></textarea>
+                            <button type="submit">Post</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        <% } %>
+    </main>
+</body>
+</html>
